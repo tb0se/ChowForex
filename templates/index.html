@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+
+<div class="bg-img">
+    <div class="container pt-5">
+
+        <div class="row justify-content-center pb-3">
+            <h1 class="display-1 text-white">Chow Forex</h1>
+        </div>
+        <div class="row justfy-content-center">
+            <div class="col text-center pt-5 ">
+                <button type="button" class="btn btn-light btn-lg">Start Learning</button>
+            </div>        
+        </div>
+    </div>
+    
+</div>
+
+<!-- About us content -->
+<div class="container mb-5">
+
+    <div class="row justify-content-center pt-3 pb-4">
+        <h1 class="display-1 ">About us</h1>
+    </div>
+
+    <div class="row featurette align-items-center">
+      <div class="col-md-7">
+        <!-- <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It’ll blow your mind.</span></h2> -->
+        <p class="lead">
+            Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.
+        </p>
+      </div>
+      <div class="col-md-5">
+          <img class="featurette-image img-fluid mx-auto" src="{{ url_for('static',filename='images/books.jpg')}}" width="500" height="500">
+      </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette align-items-center">
+      <div class="col-md-7 order-md-2">
+        <!-- <h2 class="featurette-heading">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span></h2> -->
+        <p class="lead">
+            Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.
+        </p>
+      </div>
+      <div class="col-md-5 order-md-1">
+        <img class="featurette-image img-fluid mx-auto" src="{{ url_for('static',filename='images/money.jpg')}}" width="500" height="500">      </div>
+    </div>
+    
+
+</div>
+  
+{% endblock %}

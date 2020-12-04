@@ -1,0 +1,26 @@
+body, html {
+    height: 100%;
+}
+
+.bg-img { 
+    /* The image used */
+    background-image: url(/static/images/main.jpg);
+  
+    /* Full height */
+    height: 100%; 
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.feature-img-1{
+    /* The image used */
+    background-image: url(/static/images/main.jpg);
+}
+
+.feature-img-2{
+    /* The image used */
+    background-image: url(/static/images/main.jpg);
+}

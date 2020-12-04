@@ -1,0 +1,17 @@
+### Flask.Python Stack ###
+/__pycache__/
+
+
+### Flask ###
+instance/*
+!instance/.gitignore
+.webassets-cache
+
+# Environments
+.env
+.venv
+env/
+
+
+# Others
+.vscode
