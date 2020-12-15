@@ -1,7 +1,9 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, EqualTo, Email
+from wtforms.validators import DataRequired, EqualTo, Email, ValidationError
 import email_validator
+
+from app.models import User
 
 class RegistrationForm(FlaskForm):
     fname = StringField('First name', validators=[DataRequired()])
@@ -12,6 +14,12 @@ class RegistrationForm(FlaskForm):
     ])
     confirmPassword = PasswordField('Confirm Password',validators=[DataRequired()])
     submit = SubmitField('Sign up')
+
+    # Custom validation
+    def validate_email(self,email):
+        user = User.query.filter_by(email=email.data).first()
+        if user:
+            raise ValidationError('Email address already exists')
 
 
 class LoginForm(FlaskForm):

@@ -2,15 +2,14 @@ import os
 import click
 
 from flask import Flask
-# from flask_login import LoginManager
+from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 from flask.cli import with_appcontext
 
-# Load database
-from app.models import db
-
-# Import models
-# from .models import User
+db = SQLAlchemy()
+bcrypt = Bcrypt()
+login_manager = LoginManager()
 
 def create_app():
     """
@@ -37,23 +36,13 @@ def create_app():
     except OSError:
         pass
 
-    # initialize Flask-SQLAlchemy and the init-db command
+    # Initialize Flask-SQLAlchemy(db), Bcrypt and Flask-Login
     db.init_app(app)
     app.cli.add_command(init_db_command)
-    # with app.app_context():
-    #     db.create_all()
-    # app.app_context().push()
-    # db.create_all()
-
-
-    # Flask login settings
-    # login_manager = LoginManager()
-    # login_manager.init_app(app)
-    # login_manager.login_view =  "signin"
-
-    # @login_manager.user_loader
-    # def load_user(userid):
-    #     return User.query.filter(User.id==userid).first()
+    bcrypt.init_app(app)
+    login_manager.init_app(app)
+    login_manager.login_view = 'auth.login'
+    login_manager.login_message_category = 'info'
 
 
     # Import views
@@ -70,7 +59,7 @@ def create_app():
 
 
 def init_db():
-    db.drop_all()
+    # db.drop_all()
     db.create_all()
 
 @click.command("init-db")
