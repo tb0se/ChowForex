@@ -5,5 +5,5 @@ home = Blueprint('home', __name__,static_folder ='static',template_folder='templ
 
 # Home page
 @home.route('/')
-def homepage():
+def index():
     return render_template("index.html")

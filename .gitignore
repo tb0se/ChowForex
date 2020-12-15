@@ -3,6 +3,10 @@
 __pycache__/
 
 
+### Development db ###
+*.db
+*.sqlite3
+
 ### Flask ###
 instance/*
 !instance/.gitignore

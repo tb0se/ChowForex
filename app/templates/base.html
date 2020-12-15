@@ -15,9 +15,10 @@
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
-
-    <!-- Custom styles -->
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/background.css') }}">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/background.css') }}">
+  {% block customstyles %}
+  {% endblock %}
 
 </head>
 <body>
@@ -34,7 +35,7 @@
         <ul class="navbar-nav mx-auto">
 
           <li class="nav-item active ">
-            <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{{ url_for('home.index') }}">Home<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item ml-5">
             <a class="nav-link" href="#">Blog</a>
@@ -64,22 +65,35 @@
 		
 		<!-- Login -->
 		<div class="ml-5 mr-4"> 
-			<button type="button" class="btn btn-lg btn-light">
-				<i class="far fa-user pr-2"  aria-hidden="true"></i>
-				Sign In
-			</button>
+			<a class="action" href="{{ url_for('auth.login') }}">
+                <button type="button" class="btn btn-lg btn-light">
+                    <i class="far fa-user pr-2"  aria-hidden="true"></i>
+                    Log In
+                </button>
+            </a>
 		</div>
       </div>
     </nav>
 
     <!-- Main Content -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category,message in messages%}
+                <div class="alert alert-{{ category }}">
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 
     {% block content %}
 
     {% endblock %}
+    
 
     <!-- Footer -->
-	<footer class="page-footer font-small teal pt-4"  style="background-color: #9e9d9d;">
+    <!-- style="background-color: #9e9d9d; -->
+	<footer class="page-footer font-small bg-light pt-4"  ">
 
 
 		<div class="container-fluid text-center">
@@ -113,7 +127,7 @@
 		</div>
 
 		<!-- Copyright -->
-		<div class="footer-copyright text-center py-3 " style="background-color: #808080;">
+		<div class="footer-copyright text-center py-3 " style="background-color: #e0e0e0;">
 			© 2020 Copyright: <a href="https://mdbootstrap.com/"> ChowForex</a>
 		</div>
 		<!-- Copyright -->
@@ -122,7 +136,7 @@
 	<!-- Footer -->
 
     
-
+  
 
 </body>
 </html>
