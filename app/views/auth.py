@@ -56,11 +56,14 @@ def login():
         user = User.query.filter_by(email=login_form.email.data).first()
         # check user exists
         if user and bcrypt.check_password_hash(user.password,login_form.password.data):
-            login_user(user,remember=login_form.rememberMe.data)
+
+            login_user(user, remember = login_form.rememberMe.data)
+
             # retrieve the next method/page we are trying to get
             next_page = request.args.get('next')
             flash('Successfully logged in','success')
             return redirect(next_page) if next_page else redirect(url_for("user.profile"))
+            
         else:
             flash('Incorrect username or password. Please try again.', 'danger')
 

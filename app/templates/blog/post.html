@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block content %}
+
+<main role="main" class="container">
+
+    <div class="row">
+
+        <!-- <div class="col-md-6 offset-md-3">
+            <h1 class="display-1">Blog Posts</h1>
+        </div> -->
+        
+        <div class="col-md-6 offset-md-3 mb-4">
+
+            <div class="card mt-4">
+                <div class="card-header">
+                    <a class="mr-2 text-dark" href="{{ url_for('blog.user_posts', email=post.author.email ) }}">{{ post.author.firstname }} {{  post.author.lastname }}</a>
+                    <small class="text-muted">{{post.date_posted.strftime('%Y-%m-%d')}}</small> 
+                </div>
+                <div class="row no-gutters">
+                    
+                    <div class="col-md-4">
+                        <img src="{{ url_for('static', filename='images/default_profile.jpg') }}" class="card-img-top" alt="Author profile picture">
+                    </div>
+                    <div class="col-md-8">
+                        <!-- TODO: Learn to cut the text -->
+                        <div class="card-body">
+                          <h5 class="card-title">{{ post.title }}</h5>
+                          <p class="card-text">{{ post.content | truncate(100) }}</p>
+                          {% if post.author == current_user %}
+                            <div >
+                                <a class="btn btn-primary btn-sm m-1" href="{{ url_for('blog.update_post', post_id = post.id)}}" >Update</a> 
+                                <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                            </div>
+                          {% endif %}
+                          <!-- <a href="#" class="btn btn-primary">Read more</a> -->
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+
+        </div>
+    </div>
+
+</main>
+
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Delete Post?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <!-- <div class="modal-body">
+        ...
+        </div> -->
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+
+        <form action="{{ url_for('blog.delete_post', post_id = post.id )}}" method="POST">
+            <input type="submit" class="btn btn-danger" value="Confirm">
+        </form>
+
+        </div>
+    </div>
+    </div>
+</div>
+
+{% endblock %}

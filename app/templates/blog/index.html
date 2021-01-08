@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Blog{% endblock %}
+
+{% block content %}
+
+<main role="main" class="container">
+
+    <div class="row">
+
+        <div class="col-md-6 offset-md-3">
+            <h1 class="display-1">Blog Posts</h1>
+        </div>
+        
+        <div class="col-md-6 offset-md-3 mb-4">
+
+            {% for post in posts.items %}
+
+            <div class="card mt-4">
+                <div class="card-header">
+                    <a class="mr-2 text-dark" href="{{ url_for('blog.user_posts', email=post.author.email ) }}">{{ post.author.firstname }} {{  post.author.lastname }}</a>
+                    <small class="text-muted">{{post.date_posted.strftime('%Y-%m-%d')}}</small> 
+                </div>
+                <div class="row no-gutters">
+                    
+                    <div class="col-md-4">
+                        <img src="{{ url_for('static', filename='images/default_profile.jpg') }}" class="card-img-top" alt="Author profile picture">
+                    </div>
+                    <div class="col-md-8">
+                        
+                        <div class="card-body">
+                          <a class="card-title h5 text-dark" href="{{ url_for('blog.post', post_id=post.id) }}">{{ post.title }}</a>
+                          <p class="card-text">{{ post.content | truncate(100) }}</p>
+                          <a lass="btn btn-primary" href="#" c>Read more</a>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+
+            {% endfor %}
+
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+
+                    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+
+                        {% if page_num%}
+
+                            {% if posts.page == page_num %}
+                                <li class="page-item active" aria-current="page">
+                                    <span class="page-link my-4">
+                                        {{ page_num }}
+                                        <span class="sr-only">(current)</span>
+                                    </span>
+                                    <!-- <a class="page-link my-4" href="{{ url_for('blog.home',page=page_num) }}">{{ page_num }}</a> -->
+                                </li>
+                            {% else %}
+                                <li class="page-item"><a class="page-link my-4" href="{{ url_for('blog.home',page=page_num) }}">{{ page_num }}</a></li>
+                            {% endif %}
+                        
+                        {% else %}
+
+                        {% endif %}
+
+                    {% endfor %}
+
+                </ul>
+            </nav>
+
+            
+
+        </div>
+    </div>
+
+</main>
+
+
+
+{% endblock %}

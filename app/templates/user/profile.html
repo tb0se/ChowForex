@@ -4,12 +4,95 @@
 
 {% block content %}
 
-<main role="main" class="container">
-    <h1>Welcome, {{current_user.firstname}} to your profile page</h1>
+<main role="main" class="container pb-auto">
+
+    <div class="row">
+        <div class="col-md-7 offset-md-3 ">
+            
+            <div class="media border shadow-sm p-2 m-4">
+                <img class="rounded-circle account-img align-self-center mr-3" src="{{ image_file }}">
+                <div class="media-body">
+                  <h2 class="mt-0">Welcome, {{ current_user.firstname }} {{ current_user.lastname }}</h2>
+                  <p class="text-secondary mb-0">{{ current_user.email }}</p>
+                </div>
+            </div>
+
+            <form method="post" action="">
+                {{ form.csrf_token }}
+                {{ form.hidden_tag() }}
+
+                <div class="col-12 text-center">
+                    <legend class="border-bottom mb-4">Account Info</legend>
+                </div>
+        
+                <div class="form-group">
+                    <div class="col-12">
+                        {{ form.fname.label(class="form-control-label")}}
+
+                        {% if form.fname.errors %}
+                            {{ form.fname(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.fname.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                        {{ form.fname(class='form-control', placeholder='First Name') }}
+                        {% endif %}
+                    </div>
+                    
+                </div>
+        
+                <div class="form-group">
+                    <div class="col-12">
+                        {{ form.lname.label(class="form-control-label")}}
+
+                        {% if form.fname.errors %}
+                            {{ form.fname(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.fname.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                        {{ form.lname(class='form-control', placeholder='Last Name') }}
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="col-12">
+                        {{ form.email.label(class="form-control-label")}}
+
+                        {% if form.email.errors %}
+                            {{ form.email(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.email.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                        {{ form.email(class='form-control', placeholder='Email Address') }}
+                        {% endif %}
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    
+                </div>
+
+                <div class="form-group">
+                    <div class="col-12">
+                        {{ form.submit(class="btn btn-primary") }}
+                    </div>
+                    
+                </div>
+
+            </form>
+
+        </div>
+        
+    </div>
+    
 </main>
-
-
-
 
 
 {% endblock %}

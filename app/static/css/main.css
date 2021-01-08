@@ -1,18 +1,35 @@
+/* ########## MAIN STRUCTURE ########## */
+
 body, html {
+    margin:0;
+    padding:0;
     height: 100%;
 }
+
+/* Used for account image */
+.account-img {
+    height: 125px;
+    width: 125px;
+}
+
+
+/* ########## HOME PAGE ########## */
 
 .bg-img { 
     /* The image used */
     background-image: url(/static/images/main.jpg);
   
-    /* Full height */
+    /* Full height and width */
     height: 100%; 
+    width: 100%;
   
     /* Center and scale the image nicely */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+
+    display: block;
+    position: relative;
 }
 
 .feature-img-1{
