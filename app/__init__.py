@@ -6,10 +6,12 @@ from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask.cli import with_appcontext
+from flask_mail import Mail
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
+mail = Mail()
 
 def create_app():
     """
@@ -44,6 +46,8 @@ def create_app():
     login_manager.login_view = 'auth.login'
     login_manager.login_message_category = 'info'
 
+    # Flask-Mail
+    mail.init_app(app)
 
     # Import views
     from app.views.home import home

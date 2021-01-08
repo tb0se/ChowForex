@@ -29,6 +29,7 @@ class LoginForm(FlaskForm):
     rememberMe = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
+
 class UpdateProfileForm(FlaskForm):
     fname = StringField('First name', validators=[DataRequired()])
     lname = StringField('Last name', validators=[DataRequired()])
@@ -47,3 +48,22 @@ class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     content = TextAreaField('Content',validators=[DataRequired()])
     submit = SubmitField('Post')
+
+
+class RequestResetForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Request Password Reset')
+
+    # Custom validation
+    def validate_email(self,email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError('There is no account with that email. Ensure you have registered.')
+
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('New Password', validators=[ DataRequired(),
+        EqualTo('confirmPassword', message='Passwords must match')
+    ])
+    confirmPassword = PasswordField('Confirm Password',validators=[DataRequired()])
+    submit = SubmitField('Reset Password')
