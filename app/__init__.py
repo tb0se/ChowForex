@@ -54,12 +54,14 @@ def create_app():
     from app.views.auth import auth
     from app.views.user import user
     from app.views.blog import blog
+    from app.views.errors import errors
 
     # Register Blueprints
     app.register_blueprint(home)
     app.register_blueprint(auth)
     app.register_blueprint(user)
     app.register_blueprint(blog)
+    app.register_blueprint(errors)
 
     return app
 
