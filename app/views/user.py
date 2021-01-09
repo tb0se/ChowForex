@@ -8,6 +8,7 @@ from app.utils.decorators import check_confirmed
 
 user = Blueprint('user', __name__, url_prefix="/post", static_folder ='static', template_folder='templates')
 
+# TODO: Re-confirm a changed email address
 # Profile page
 @user.route('/',methods=['POST','GET'])
 @login_required
