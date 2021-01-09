@@ -4,12 +4,14 @@ from flask_login import login_required, current_user
 
 from app import db
 from app.forms import UpdateProfileForm
+from app.utils.decorators import check_confirmed
 
 user = Blueprint('user', __name__, url_prefix="/post", static_folder ='static', template_folder='templates')
 
 # Profile page
 @user.route('/',methods=['POST','GET'])
 @login_required
+@check_confirmed
 def profile():
     form = UpdateProfileForm()
     if request.method == 'POST' and form.validate_on_submit():
