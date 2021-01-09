@@ -3,6 +3,7 @@ from datetime import datetime
 
 # Import flask dependencies
 from flask import render_template, Blueprint, request, url_for, redirect, flash
+from flask import current_app as app
 from flask_login import login_user, current_user, logout_user, login_required
 
 from app import db, bcrypt, mail
@@ -65,8 +66,7 @@ def confirm_email(token):
 
     if user is None:
         flash('The confirmation link is invalid or has expired.','danger')
-        # TODO: Send user to template to request a new confirmation token
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('auth.resend_confirmation'))
 
     if user.confirmed:
         flash('Account already confirmed. Please login.','success')
@@ -114,6 +114,7 @@ def login():
         if user and bcrypt.check_password_hash(user.password,login_form.password.data):
 
             login_user(user, remember = login_form.rememberMe.data)
+            app.logger.info(f'{user.email} logged in successfully')
 
             # retrieve the next method/page we are trying to get
             next_page = request.args.get('next')
@@ -122,6 +123,7 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for("home.index"))
             
         else:
+            app.logger.info(f'{user.email} failed to login')
             flash('Incorrect username or password. Please try again.', 'danger')
 
     return render_template("auth/login.html",form=login_form)
@@ -131,6 +133,7 @@ def login():
 @auth.route('/logout')
 def logout():
     logout_user()
+    app.logger.info(f'{user.email} logged out successfully')
     flash('Successfully logged out','success')
     return redirect(url_for('home.index'))
 
