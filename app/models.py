@@ -1,8 +1,15 @@
+# Standard Library Imports
 from datetime import datetime
+
+# Flask Imports
+from flask import current_app as app
+
+# Local Imports
+from app import db, login_manager
+
+# 3rd party imports
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_sqlalchemy import SQLAlchemy
-from app import db, login_manager
-from flask import current_app as app
 from flask_login import UserMixin
 
 @login_manager.user_loader
@@ -18,7 +25,10 @@ class User(db.Model, UserMixin):
     lastname = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(30), unique=True, nullable=False)
+    confirmed = db.Column(db.Boolean, nullable=False, default=False)
+    confirmed_date = db.Column(db.DateTime, nullable=True)
     posts = db.relationship('Post', backref='author', lazy=True)
+    
 
     # Creates a new reset password token
     def get_reset_token(self, expires_sec=1800):

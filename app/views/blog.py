@@ -5,6 +5,7 @@ from flask_login import login_required, current_user
 from app import db
 from app.forms import PostForm
 from app.models import Post, User
+from app.utils.decorators import check_confirmed
 
 blog = Blueprint('blog', __name__, url_prefix="/blog", static_folder ='static', template_folder='templates')
 
@@ -23,6 +24,7 @@ def home():
 # Create a new post
 @blog.route('/post/new',methods=['POST','GET'])
 @login_required
+@check_confirmed
 def new_post():
     post_form = PostForm()
     if request.method == 'POST' and post_form.validate_on_submit():
@@ -53,6 +55,7 @@ def post(post_id):
 # Update a post
 @blog.route('/post/<int:post_id>/update',methods=['POST','GET'])
 @login_required
+@check_confirmed
 def update_post(post_id):
 
     post = Post.query.get_or_404(post_id)
@@ -75,6 +78,7 @@ def update_post(post_id):
 
 @blog.route('/post/<int:post_id>/delete',methods=['POST'])
 @login_required
+@check_confirmed
 def delete_post(post_id):
 
     post = Post.query.get_or_404(post_id)

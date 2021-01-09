@@ -1,14 +1,16 @@
 import sys
+from datetime import datetime
 
 # Import flask dependencies
 from flask import render_template, Blueprint, request, url_for, redirect, flash
-from flask_login import login_user, current_user, logout_user
+from flask_login import login_user, current_user, logout_user, login_required
 
 from app import db, bcrypt, mail
 from app.forms import RegistrationForm, LoginForm, RequestResetForm, ResetPasswordForm
 from app.models import User
 
 from flask_mail import Message
+from app.utils.email import send_email
 
 auth = Blueprint('auth', __name__, url_prefix="/auth", static_folder ='static', template_folder='templates')
 
@@ -31,20 +33,71 @@ def register():
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
         # Create user
-        user = User(firstname=fname, lastname=fname, email=email, password=hashed_password)
+        user = User(firstname=fname, lastname=lname, 
+                email=email, password=hashed_password,
+                confirmed=False)
         # print(user, file=sys.stderr)
 
         # Save user to db
         db.session.add(user)
         db.session.commit()
 
-        # TODO: Configure email confirmation
+        # Email confirmation
+        email_token = user.get_reset_token()
+        confirm_url = url_for('auth.confirm_email', token=email_token, _external=True)
+        html = render_template('auth/activate.html', confirm_url=confirm_url)
+        subject = "Please confirm your email address"
+        send_email(user.email, subject, html)
 
         flash(f'Account created for {register_form.fname.data}!', 'success')
-        return redirect(url_for('auth.login'))
+        # return redirect(url_for('auth.login'))
+        return redirect(url_for('auth.unconfirmed'))
 
     return render_template("auth/register.html",form=register_form)
 
+
+# Email Confirmation
+@auth.route('/confirm/<token>')
+@login_required
+def confirm_email(token):
+
+    user = User.verify_reset_token(token)
+
+    if user is None:
+        flash('The confirmation link is invalid or has expired.','danger')
+        # TODO: Send user to template to request a new confirmation token
+        return redirect(url_for('auth.login'))
+
+    if user.confirmed:
+        flash('Account already confirmed. Please login.','success')
+    else:
+        user.confirmed = True
+        user.confirmed_date = datetime.now()
+        db.session.commit()
+        flash('You have confirmed your account. Thanks!', 'success')
+    return redirect(url_for('home.index'))
+
+
+# Remind users to confirm emails
+@auth.route('/unconfirmed')
+# @login_required
+def unconfirmed():
+    if current_user.confirmed:
+        return redirect(url_for("user.profile"))
+    # flash('Please confirm your account!','warning')
+    return render_template('auth/unconfirmed.html')
+
+# Resend confirmation email
+@auth.route('/resend')
+@login_required
+def resend_confirmation():
+    email_token = current_user.get_reset_token()
+    confirm_url = url_for('auth.confirm_email', token=email_token, _external=True)
+    html = render_template('auth/activate.html', confirm_url=confirm_url)
+    subject = "Please confirm your email address"
+    send_email(current_user.email, subject, html)
+    flash('A new confirmation email has been sent.','success')
+    return redirect(url_for('home.index'))
 
 # Login
 @auth.route('/login',methods=['POST','GET'])
@@ -65,7 +118,8 @@ def login():
             # retrieve the next method/page we are trying to get
             next_page = request.args.get('next')
             flash('Successfully logged in','success')
-            return redirect(next_page) if next_page else redirect(url_for("user.profile"))
+            # return redirect(next_page) if next_page else redirect(url_for("user.profile"))
+            return redirect(next_page) if next_page else redirect(url_for("home.index"))
             
         else:
             flash('Incorrect username or password. Please try again.', 'danger')
