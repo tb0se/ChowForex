@@ -133,7 +133,7 @@ def login():
 @auth.route('/logout')
 def logout():
     logout_user()
-    app.logger.info(f'{user.email} logged out successfully')
+    # app.logger.info(f'{user.email} logged out successfully')
     flash('Successfully logged out','success')
     return redirect(url_for('home.index'))
 
