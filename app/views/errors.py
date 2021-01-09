@@ -7,6 +7,7 @@ errors = Blueprint('errors', __name__, static_folder ='static', template_folder=
 
 @errors.app_errorhandler(404)
 def error_404(error):
+    # app.logger.error(f'{user.email} logged in successfully')
     return render_template('errors/404.html'), 404
 
 @errors.app_errorhandler(403)
