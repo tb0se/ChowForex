@@ -51,8 +51,8 @@ def register():
         send_email(user.email, subject, html)
 
         flash(f'Account created for {register_form.fname.data}!', 'success')
-        # return redirect(url_for('auth.login'))
-        return redirect(url_for('auth.unconfirmed'))
+        return redirect(url_for('auth.login'))
+        # return redirect(url_for('auth.unconfirmed'))
 
     return render_template("auth/register.html",form=register_form)
 

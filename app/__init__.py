@@ -40,7 +40,7 @@ def create_app():
         app.config.from_object("config.DevelopmentConfig")
 
     app.logger.setLevel(logging.INFO)
-    app.logger.info('ChowForex startup')
+    # app.logger.info('ChowForex startup')
 
     #Ensure instance folder exists
     try:
