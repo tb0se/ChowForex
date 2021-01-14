@@ -40,7 +40,7 @@ def new_post():
 
         flash('Your post has been created','success')
         return redirect(url_for('blog.home'))
-    return render_template("blog/create_post.html", form=post_form, title="New Post",legend="New form")
+    return render_template("blog/create_post.html", form=post_form, title="New Post",legend="New Post")
 
 
 # View post
