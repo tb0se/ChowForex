@@ -8,11 +8,13 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask.cli import with_appcontext
 from flask_mail import Mail
+from flask_migrate import Migrate
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
 mail = Mail()
+migrate = Migrate()
 
 def create_app():
     """
@@ -46,9 +48,10 @@ def create_app():
     except OSError:
         pass
 
-    # Initialize Flask-SQLAlchemy(db), Bcrypt and Flask-Login
+    # Initialize Flask-SQLAlchemy(db), Bcrypt, flask-migrate and Flask-Login
     db.init_app(app)
     app.cli.add_command(init_db_command)
+    migrate.init_app(app, db)
     bcrypt.init_app(app)
     login_manager.init_app(app)
     login_manager.login_view = 'auth.login'
@@ -75,6 +78,7 @@ def create_app():
 
 
 def init_db():
+    """ Creates the database """
     # db.drop_all()
     db.create_all()
 
