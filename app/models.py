@@ -24,7 +24,7 @@ class User(db.Model, UserMixin):
     firstname = db.Column(db.String(80), nullable=False)
     lastname = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(30), unique=True, nullable=False)
+    password = db.Column(db.String(50), unique=True, nullable=False)
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
     confirmed_date = db.Column(db.DateTime, nullable=True)
     posts = db.relationship('Post', backref='author', lazy=True)

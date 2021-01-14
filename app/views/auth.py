@@ -123,7 +123,8 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for("home.index"))
             
         else:
-            app.logger.info(f'{user.email} failed to login')
+            if user :
+                app.logger.info(f'{user.email} failed to login')
             flash('Incorrect username or password. Please try again.', 'danger')
 
     return render_template("auth/login.html",form=login_form)
