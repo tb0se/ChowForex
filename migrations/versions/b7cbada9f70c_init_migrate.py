@@ -29,7 +29,7 @@ def upgrade():
     sa.Column('firstname', sa.String(length=80), nullable=False),
     sa.Column('lastname', sa.String(length=80), nullable=False),
     sa.Column('email', sa.String(length=120), nullable=False),
-    sa.Column('password', sa.String(length=50), nullable=False),
+    sa.Column('password', sa.String(length=80), nullable=False),
     sa.Column('confirmed', sa.Boolean(), nullable=False),
     sa.Column('confirmed_date', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
