@@ -6,7 +6,7 @@ from app import db
 from app.forms import UpdateProfileForm
 from app.utils.decorators import check_confirmed
 
-user_bp = Blueprint('user_blueprint', __name__, url_prefix="/post", static_folder ='static', template_folder='templates')
+user_bp = Blueprint('user_bp', __name__, url_prefix="/post", static_folder ='static', template_folder='templates')
 
 # TODO: Re-confirm a changed email address
 # Profile page

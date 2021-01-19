@@ -22,6 +22,10 @@ class Config(object):
     # Flask Admin theme
     FLASK_ADMIN_SWATCH = 'sandstone'
 
+    # ADMIN DETAILS
+    ADMIN_EMAIL = os.environ['ADMIN_EMAIL']
+    ADMIN_PASS = os.environ['ADMIN_PASS']
+
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     SECRET_KEY = os.environ.get('SECRET_KEY')

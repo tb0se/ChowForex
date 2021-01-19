@@ -46,20 +46,25 @@ def create_app():
     db.init_app(app)
     mail.init_app(app)
     app.cli.add_command(init_db_command)
+    app.cli.add_command(create_user)
     migrate.init_app(app, db)
     bcrypt.init_app(app)
     login_manager.init_app(app)
     login_manager.login_view = 'auth.login'
     login_manager.login_message_category = 'info'
-    admin = Admin(app, name='Admin', template_mode='bootstrap3')    
+       
 
     # Import models
     from app.models import Post, Education, User
+    from app.views.custom_admin import CustomModelView, CustomAdminIndexView
+
+    admin = Admin(app, name='Admin', template_mode='bootstrap3',
+        index_view=CustomAdminIndexView()) 
 
     # Add Admin model views
-    admin.add_view(ModelView(User, db.session))
-    admin.add_view(ModelView(Post, db.session))
-    admin.add_view(ModelView(Education, db.session))
+    admin.add_view(CustomModelView(User, db.session))
+    admin.add_view(CustomModelView(Post, db.session))
+    admin.add_view(CustomModelView(Education, db.session))
 
     # Import views
     from app.views.home import home
@@ -90,3 +95,23 @@ def init_db_command():
     """Clear existing data and create new tables."""
     init_db()
     click.echo("Initialized the database.")
+
+@click.command("create-user")
+@with_appcontext
+@click.argument("name")
+def create_user(name):
+    """Seeds the database with an initial admin user"""
+    from app.models import User
+    from flask import current_app as app
+    from datetime import datetime
+
+    admin_user = User.query.filter_by(email=app.config['ADMIN_EMAIL']).first()
+    if admin_user is None:
+        password = bcrypt.generate_password_hash(app.config['ADMIN_PASS']).decode('utf-8')
+        admin_user = User(firstname=name, lastname=name,
+            email=app.config['ADMIN_EMAIL'], password=password, role='ADMIN',
+            confirmed=True, confirmed_date=datetime.now()  )
+
+        db.session.add(admin_user)
+        db.session.commit()
+        click.echo("Created Admin user")
