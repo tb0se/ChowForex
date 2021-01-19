@@ -6,11 +6,11 @@ from app import db
 from app.forms import UpdateProfileForm
 from app.utils.decorators import check_confirmed
 
-user = Blueprint('user', __name__, url_prefix="/post", static_folder ='static', template_folder='templates')
+user_bp = Blueprint('user_bp', __name__, url_prefix="/post", static_folder ='static', template_folder='templates')
 
 # TODO: Re-confirm a changed email address
 # Profile page
-@user.route('/',methods=['POST','GET'])
+@user_bp.route('/',methods=['POST','GET'])
 @login_required
 @check_confirmed
 def profile():
@@ -29,5 +29,5 @@ def profile():
         form.email.data =  current_user.email
 
     default_profile_img = url_for('static', filename='images/default_profile.jpg')
-    return render_template("user/profile.html",
+    return render_template("user_bp/profile.html",
      image_file = default_profile_img, form=form)

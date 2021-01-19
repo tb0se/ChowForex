@@ -1,5 +1,6 @@
 # Standard Library Imports
 from datetime import datetime
+import enum
 
 # Flask Imports
 from flask import current_app as app
@@ -10,12 +11,19 @@ from app import db, login_manager
 # 3rd party imports
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
+from flask_admin.contrib.sqla import ModelView
 
+# User loader
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+# Access roles
+class Role(enum.Enum):
+    GUEST = 0
+    USER = 1
+    ADMIN = 2
 
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
@@ -27,9 +35,9 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(80), unique=True, nullable=False)
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
     confirmed_date = db.Column(db.DateTime, nullable=True)
+    role = db.Column(db.Enum(Role), nullable=False, server_default='USER')
     posts = db.relationship('Post', backref='author', lazy=True)
     
-
     # Creates a new reset password token
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(app.config['SECRET_KEY'], expires_sec)
@@ -45,9 +53,18 @@ class User(db.Model, UserMixin):
             return None
         return User.query.get(user_id)
 
+    # Checks if user is admin
+    def is_admin(self):
+        return self.role == Role.ADMIN
+
+    # Checks if user's role is high enough
+    def role_allowed(self, role):
+        return self.role >= role
 
     def __repr__(self):
         return f'<User {self.email}>'
+
+
 
 class Post(db.Model):
     __tablename__ = 'post'
@@ -61,6 +78,7 @@ class Post(db.Model):
     def __repr__(self):
         return f'<Post {self.title}, {self.date_posted}>'
 
+
 class Education(db.Model):
     __tablename__ = 'education'
 
@@ -70,3 +88,13 @@ class Education(db.Model):
 
     def __repr__(self):
         return f'<Education {self.name}>'
+
+# Custom ModelView for Flask-admin
+# class CustomModelView(ModelView):
+    
+#     # If true user can see the model
+#     def is_accessible(self):
+#         return current_user.is_authenticated
+
+#     def inaccessible_callback(self, name, **kwargs):
+#         return redirect
