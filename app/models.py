@@ -49,6 +49,8 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f'<User {self.email}>'
 
+
+
 class Post(db.Model):
     __tablename__ = 'post'
 
@@ -60,6 +62,7 @@ class Post(db.Model):
 
     def __repr__(self):
         return f'<Post {self.title}, {self.date_posted}>'
+
 
 class Education(db.Model):
     __tablename__ = 'education'

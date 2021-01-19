@@ -19,6 +19,9 @@ class Config(object):
     MAIL_USERNAME = os.environ['EMAIL_USER']
     MAIL_PASSWORD = os.environ['EMAIL_PASS']
 
+    # Flask Admin theme
+    FLASK_ADMIN_SWATCH = 'sandstone'
+
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     SECRET_KEY = os.environ.get('SECRET_KEY')

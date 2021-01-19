@@ -20,7 +20,7 @@ auth = Blueprint('auth', __name__, url_prefix="/auth", static_folder ='static', 
 def register():
 
     if current_user.is_authenticated:
-        return redirect(url_for("user.profile"))
+        return redirect(url_for("user_bp.profile"))
 
     register_form = RegistrationForm()
     # print("about to validate", file=sys.stderr)
@@ -83,7 +83,7 @@ def confirm_email(token):
 # @login_required
 def unconfirmed():
     if current_user.confirmed:
-        return redirect(url_for("user.profile"))
+        return redirect(url_for("user_bp.profile"))
     # flash('Please confirm your account!','warning')
     return render_template('auth/unconfirmed.html')
 
@@ -104,7 +104,7 @@ def resend_confirmation():
 def login():
 
     if current_user.is_authenticated:
-        return redirect(url_for("user.profile"))
+        return redirect(url_for("user_bp.profile"))
 
     login_form = LoginForm()
 
