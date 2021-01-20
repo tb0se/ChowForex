@@ -41,10 +41,10 @@
                 <li {% if request.path == url_for('home.index') %}class="nav-item active"{% else %} class="nav-item" {% endif %}>
                     <a class="nav-link" href="{{ url_for('home.index') }}">Home<span class="sr-only">(current)</span></a>
                 </li>
-                <li {% if request.path == url_for('blog.home') %}class="nav-item ml-5 active"{% else %} class="nav-item ml-5" {% endif %}>
+                <li {% if request.path == url_for('blog.home') %}class="nav-item ml-lg-5 active"{% else %} class="nav-item ml-lg-5" {% endif %}>
                     <a class="nav-link" href="{{ url_for('blog.home') }}">Blog</a>
                 </li>
-                <li {% if request.path == url_for('edu.index') %}class="nav-item ml-5 active"{% else %} class="nav-item ml-5" {% endif %}>
+                <li {% if request.path == url_for('edu.index') %}class="nav-item ml-lg-5 active"{% else %} class="nav-item ml-lg-5" {% endif %}>
                     <a class="nav-link" href="{{ url_for('edu.index') }}" >Education</a>
                 </li>
 
@@ -57,12 +57,12 @@
             </form>
         
             <!-- Login -->
-            <div class="ml-5 mr-4"> 
+            <div class="ml-lg-5 mr-4"> 
                 {% if current_user.is_authenticated %}
 
                     <div class="nav-item dropdown">
                         
-                        <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle pl-0" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <button type="button" class="btn btn-lg btn-light">
                                 <i class="far fa-user pr-2"  aria-hidden="true"></i>
                             </button>
