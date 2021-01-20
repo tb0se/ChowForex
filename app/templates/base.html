@@ -51,10 +51,10 @@
             </ul>
 
             <!-- Search Bar -->
-            <form class="form-inline my-2 my-lg-0">
+            <!-- <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            </form> -->
         
             <!-- Login -->
             <div class="ml-lg-5 mr-4"> 
@@ -149,7 +149,7 @@
                             <a href="{{ url_for('blog.home') }}" class="text-dark">Blog</a>
                         </li>
                         <li>
-                            <a href="#!" class="text-dark">About Us</a>
+                            <a href="{{ url_for('home.about_us') }}" class="text-dark">About Us</a>
                         </li>
                         <li>
                             <a href="{{ url_for('edu.index') }}" class="text-dark">Education</a>
@@ -162,16 +162,16 @@
                     <h5 class="text-uppercase">More Links</h5>
                     <ul class="list-unstyled mb-0">
                         <li>
-                            <a href="#!" class="text-dark">Legal Stuff</a>
+                            <a href="{{ url_for('home.legal') }}" class="text-dark">Legal Stuff</a>
                         </li>
                         <li>
-                            <a href="#!" class="text-dark">Brokers</a>
+                            <a href="{{ url_for('home.brokers') }}" class="text-dark">Brokers</a>
                         </li>
                         <li>
-                            <a href="#!" class="text-dark">Charts</a>
+                            <a href="{{ url_for('home.charts') }}" class="text-dark">Charts</a>
                         </li>
                         <li>
-                            <a href="#!" class="text-dark">Contact Us</a>
+                            <a href="{{ url_for('home.contact') }}" class="text-dark">Contact Us</a>
                         </li>
                     </ul>
 				</div>
