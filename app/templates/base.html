@@ -123,28 +123,57 @@
 
 		<div class="container-fluid text-center">
 	
-			<div class="row">
+			<div class="row mb-3">
 				<!-- Grid column -->
 				<div class="col-md-6 mt-md-0 mt-3">
 
 					<!-- Content -->
 					<h5 class="text-uppercase font-weight-bold">Disclaimer:</h5>
-					<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita sapiente sint, nulla, nihil
-						repudiandae commodi voluptatibus corrupti animi sequi aliquid magnam debitis, maxime quam recusandae
-						harum esse fugiat. Itaque, culpa?</p>
+					<p>
+                        Trading <abbr title="Foreign Exchange">Forex</abbr> or <abbr title="Contract For Differences">CFD's</abbr>
+                         on leverage is high risk and your losses could exceed deposits. Please ensure that you fully understand the risks
+                         involved, taking into account your investments objectives and level of experience, before trading, and if neccessary,
+                         seek independent advice.
+                    </p>
 			
-				</div>
+                </div>
+                
 				<!-- Grid column -->
-				<div class="col-md-6 mb-4 d-flex align-items-center">
-
-					<form class="input-group">
-						<input type="text" class="form-control form-control-sm" placeholder="Your email"
-							aria-label="Your email" aria-describedby="basic-addon2">
-						<div class="input-group-append ml-1">
-							<button class="btn btn-sm btn-light my-0" type="button">Sign up</button>
-						</div>
-					</form>
-			
+				<div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Links</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a href="{{ url_for('home.index') }}" class="text-dark">Home</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('blog.home') }}" class="text-dark">Blog</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-dark">About Us</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('edu.index') }}" class="text-dark">Education</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Grid column -->
+				<div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">More Links</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a href="#!" class="text-dark">Legal Stuff</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-dark">Brokers</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-dark">Charts</a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-dark">Contact Us</a>
+                        </li>
+                    </ul>
 				</div>
 
 			</div>
@@ -153,7 +182,7 @@
 
 		<!-- Copyright -->
 		<div class="footer-copyright text-center py-3 " style="background-color: #e0e0e0;">
-			© 2021 Copyright: <a href="https://mdbootstrap.com/"> ChowForex</a>
+			© 2021 Copyright: <a class="text-dark" href="{{ url_for('home.index') }}"> ChowForex</a>
 		</div>
 		<!-- Copyright -->
 
