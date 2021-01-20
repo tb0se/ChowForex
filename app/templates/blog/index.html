@@ -18,8 +18,9 @@
 
             <div class="card mt-4">
                 <div class="card-header">
+                    {{ post.date_posted.strftime('%b %d %Y') }}
+                    by
                     <a class="mr-2 text-dark" href="{{ url_for('blog.user_posts', email=post.author.email ) }}">{{ post.author.firstname }} {{  post.author.lastname }}</a>
-                    <small class="text-muted">{{post.date_posted.strftime('%Y-%m-%d')}}</small> 
                 </div>
                 <div class="row no-gutters">
                     
@@ -31,7 +32,7 @@
                         <div class="card-body">
                           <a class="card-title h5 text-dark" href="{{ url_for('blog.post', post_id=post.id) }}">{{ post.title }}</a>
                           <p class="card-text">{{ post.content | truncate(100) }}</p>
-                          <a lass="btn btn-primary" href="#" c>Read more</a>
+                          <a lass="btn btn-primary" href="{{ url_for('blog.post', post_id=post.id) }}" c>Read more</a>
                         </div>
                     </div>
                     
