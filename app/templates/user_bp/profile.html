@@ -40,22 +40,38 @@
                         {{ form.fname(class='form-control', placeholder='First Name') }}
                         {% endif %}
                     </div>
-                    
                 </div>
         
                 <div class="form-group">
                     <div class="col-12">
                         {{ form.lname.label(class="form-control-label")}}
 
-                        {% if form.fname.errors %}
-                            {{ form.fname(class="form-control form-control-lg is-invalid") }}
+                        {% if form.lname.errors %}
+                            {{ form.lname(class="form-control form-control-lg is-invalid") }}
                             <div class="invalid-feedback">
-                                {% for error in form.fname.errors %}
+                                {% for error in form.lname.errors %}
                                     <span>{{ error }}</span>
                                 {% endfor %}
                             </div>
                         {% else %}
                         {{ form.lname(class='form-control', placeholder='Last Name') }}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-12">
+                        {{ form.uname.label(class="form-control-label")}}
+
+                        {% if form.uname.errors %}
+                            {{ form.uname(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.uname.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                        {{ form.uname(class='form-control', placeholder='Username') }}
                         {% endif %}
                     </div>
                 </div>

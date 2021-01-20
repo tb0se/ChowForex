@@ -18,9 +18,15 @@
 
             <div class="card mt-4">
                 <div class="card-header">
-                    {{ post.date_posted.strftime('%b %d %Y') }}
+                    {{ post.date_posted.strftime('%d %b %Y') }}
                     by
-                    <a class="mr-2 text-dark" href="{{ url_for('blog.user_posts', email=post.author.email ) }}">{{ post.author.firstname }} {{  post.author.lastname }}</a>
+                    <a class="mr-2 text-dark" href="{{ url_for('blog.user_posts', email=post.author.email ) }}">
+                        {% if not post.author.username%}
+                            {{ post.author.firstname }} {{  post.author.lastname }}
+                        {% else %}
+                            {{ post.author.username }}
+                        {% endif %}
+                    </a>
                 </div>
                 <div class="row no-gutters">
                     

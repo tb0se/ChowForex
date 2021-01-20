@@ -12,7 +12,13 @@
             <h2 class="heading-2">{{ post.title }}</h2>
             <p>
                 {{post.date_posted.strftime('%d %b %Y')}} by 
-                <a href="{{ url_for('blog.user_posts', email=post.author.email ) }}">{{ post.author.firstname }} {{  post.author.lastname }}</a>
+                <a href="{{ url_for('blog.user_posts', email=post.author.email ) }}">
+                    {% if not post.author.username%}
+                        {{ post.author.firstname }} {{  post.author.lastname }}
+                    {% else %}
+                        {{ post.author.username }}
+                    {% endif %}
+                </a>
             </p>
             <hr>
             <!-- Blog post content -->

@@ -40,7 +40,7 @@ def new_post():
 
         flash('Your post has been created','success')
         return redirect(url_for('blog.home'))
-    return render_template("blog/create_post.html", form=post_form, title="New Post",legend="New Post")
+    return render_template("blog/create_post.html", form=post_form, title="New Post",legend="New Article")
 
 
 # View post
@@ -74,7 +74,7 @@ def update_post(post_id):
         post_form.title.data = post.title
         post_form.content.data = post.content
     
-    return render_template("blog/create_post.html", form=post_form, title="Update Post",legend="Update post") 
+    return render_template("blog/create_post.html", form=post_form, title="Update Post",legend="Update Article") 
 
 @blog.route('/post/<int:post_id>/delete',methods=['POST'])
 @login_required
