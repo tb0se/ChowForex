@@ -9,7 +9,7 @@
     <div class="row">
 
         <div class="col-md-6 offset-md-3">
-            <h1 class="display-1">Blog Posts</h1>
+            <h3 class="display-3">Featured Articles</h3>
         </div>
         
         <div class="col-md-6 offset-md-3 mb-4">
@@ -18,8 +18,15 @@
 
             <div class="card mt-4">
                 <div class="card-header">
-                    <a class="mr-2 text-dark" href="{{ url_for('blog.user_posts', email=post.author.email ) }}">{{ post.author.firstname }} {{  post.author.lastname }}</a>
-                    <small class="text-muted">{{post.date_posted.strftime('%Y-%m-%d')}}</small> 
+                    {{ post.date_posted.strftime('%d %b %Y') }}
+                    by
+                    <a class="mr-2 text-dark" href="{{ url_for('blog.user_posts', email=post.author.email ) }}">
+                        {% if not post.author.username%}
+                            {{ post.author.firstname }} {{  post.author.lastname }}
+                        {% else %}
+                            {{ post.author.username }}
+                        {% endif %}
+                    </a>
                 </div>
                 <div class="row no-gutters">
                     
@@ -31,7 +38,7 @@
                         <div class="card-body">
                           <a class="card-title h5 text-dark" href="{{ url_for('blog.post', post_id=post.id) }}">{{ post.title }}</a>
                           <p class="card-text">{{ post.content | truncate(100) }}</p>
-                          <a lass="btn btn-primary" href="#" c>Read more</a>
+                          <a lass="btn btn-primary" href="{{ url_for('blog.post', post_id=post.id) }}" c>Read more</a>
                         </div>
                     </div>
                     

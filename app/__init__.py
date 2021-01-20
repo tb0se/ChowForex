@@ -55,7 +55,7 @@ def create_app():
        
 
     # Import models
-    from app.models import Post, Education, User
+    from app.models import Post, Education, User, Comment
     from app.views.custom_admin import CustomModelView, CustomAdminIndexView
 
     admin = Admin(app, name='Admin', template_mode='bootstrap3',
@@ -64,7 +64,9 @@ def create_app():
     # Add Admin model views
     admin.add_view(CustomModelView(User, db.session))
     admin.add_view(CustomModelView(Post, db.session))
+    admin.add_view(CustomModelView(Comment, db.session))
     admin.add_view(CustomModelView(Education, db.session))
+    
 
     # Import views
     from app.views.home import home
@@ -72,6 +74,7 @@ def create_app():
     from app.views.user import user_bp
     from app.views.blog import blog
     from app.views.errors import errors
+    from app.views.edu import edu
 
     # Register Blueprints
     app.register_blueprint(home)
@@ -79,6 +82,7 @@ def create_app():
     app.register_blueprint(user_bp)
     app.register_blueprint(blog)
     app.register_blueprint(errors)
+    app.register_blueprint(edu)
     
 
     return app

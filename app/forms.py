@@ -9,6 +9,7 @@ from app.models import User
 class RegistrationForm(FlaskForm):
     fname = StringField('First name', validators=[DataRequired()])
     lname = StringField('Last name', validators=[DataRequired()])
+    uname = StringField('Username', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('New Password', validators=[ DataRequired(),
         EqualTo('confirmPassword', message='Passwords must match')
@@ -33,6 +34,7 @@ class LoginForm(FlaskForm):
 class UpdateProfileForm(FlaskForm):
     fname = StringField('First name', validators=[DataRequired()])
     lname = StringField('Last name', validators=[DataRequired()])
+    uname = StringField('Username', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
     submit = SubmitField('Update')
 

@@ -26,6 +26,7 @@ def profile():
     elif request.method == 'GET':
         form.fname.data =  current_user.firstname
         form.lname.data =  current_user.lastname
+        form.uname.data =  current_user.username
         form.email.data =  current_user.email
 
     default_profile_img = url_for('static', filename='images/default_profile.jpg')

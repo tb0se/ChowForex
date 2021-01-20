@@ -41,3 +41,7 @@ body, html {
     /* The image used */
     background-image: url(/static/images/main.jpg);
 }
+
+/* .dropdown-menu {
+    min-width: 0rem;
+} */

@@ -29,12 +29,13 @@ def register():
         # Get form data
         fname = register_form.fname.data
         lname = register_form.lname.data
+        uname = register_form.uname.data
         email = register_form.email.data
         password = register_form.password.data
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
         # Create user
-        user = User(firstname=fname, lastname=lname, 
+        user = User(firstname=fname, lastname=lname, username=uname,
                 email=email, password=hashed_password,
                 confirmed=False)
         # print(user, file=sys.stderr)

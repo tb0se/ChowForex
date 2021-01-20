@@ -48,6 +48,21 @@
                             {% endif %}
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <div class="col-12">
+                            {% if form.uname.errors %}
+                                {{ form.uname(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.uname.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                            {{ form.uname(class='form-control', placeholder='Username') }}
+                            {% endif %}
+                        </div>
+                    </div>
                     
                     <div class="form-group">
                         <div class="col-12">
