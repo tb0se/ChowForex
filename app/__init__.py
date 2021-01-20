@@ -72,6 +72,7 @@ def create_app():
     from app.views.user import user_bp
     from app.views.blog import blog
     from app.views.errors import errors
+    from app.views.edu import edu
 
     # Register Blueprints
     app.register_blueprint(home)
@@ -79,6 +80,7 @@ def create_app():
     app.register_blueprint(user_bp)
     app.register_blueprint(blog)
     app.register_blueprint(errors)
+    app.register_blueprint(edu)
     
 
     return app
